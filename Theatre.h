@@ -14,7 +14,7 @@ public:
     
     void setRow(int);
     void setSeat(int);
-    void setOccupied();
+    void setOccupied(bool);
     void setPrice();
     int getRow();
     int getSeat();
@@ -39,6 +39,7 @@ public:
     double totalRevenues();
     std::string soldTickets();
     std::string showSeats();
+    
 
 //private:
     Ticket tickets[numberOfTickets];
