@@ -16,9 +16,9 @@ public:
     void setSeat(int);
     void setOccupied(bool);
     void setPrice();
-    int getRow();
-    int getSeat();
-    double getPrice();
+    inline int getRow(){return row;}
+    inline int getSeat(){return seat;}
+    inline double getPrice() {return price;}
         
 private:
     int row;

@@ -21,12 +21,32 @@ bool Theatre::sellTicket(Ticket t)
             } else return false;            
 }
 
-void Theatre::sortBySeat() 
-{
+void Theatre::sortBySeat()              // bubble sort
+{                                       // O(n²)
+    Ticket temp;
+    for (int n = numberOfTickets; n > 0; --n)
+        for (int i = 0; i < n - 1; ++i){
+            if(tickets[i].getSeat() + (tickets[i].getRow() * 15) > (tickets[i+1].getSeat() + tickets[i+1].getRow()*15)) 
+            {
+                temp = tickets[i];
+                tickets[i] = tickets[i+1];
+                tickets[i+1] = temp;               
+            }    
+    }
     
 }
-void Theatre::sortByPrice()
-{
+void Theatre::sortByPrice()             // selection sort
+{                                       // O(n²)
+    Ticket temp;
+    int index;
+    for (int i = 0; i < numberOfTickets -2; ++i) {
+        temp = tickets[i];
+        index = i;
+        for(int j = i + 1; j < numberOfTickets - 1; ++j)
+            if(tickets[j].getPrice() > temp.getPrice()){ temp = tickets[j]; index = j;}
+        tickets[index] = tickets[i];
+        tickets[i] = temp;
+    }
 }
 
 
