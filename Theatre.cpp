@@ -14,11 +14,14 @@ Theatre::Theatre()
 
 bool Theatre::sellTicket(Ticket t)
 {
-    for(int i = 0; i < 150; ++i)
-            if(tickets[i].getRow() == t.getRow() && tickets[i].getSeat() == t.getSeat() && !tickets[i].isOccupied()){
+    for(int i = 0; i < 150; ++i){
+            if(tickets[i].getRow() == t.getRow() && tickets[i].getSeat() == t.getSeat() && !tickets[i].isOccupied())
+            {
                 tickets[i].setOccupied(true);
                 return tickets[i].isOccupied();
-            } else return false;            
+            }
+    }
+            return false;
 }
 
 void Theatre::sortBySeat()              // bubble sort
@@ -49,6 +52,55 @@ void Theatre::sortByPrice()             // selection sort
     }
 }
 
+int Theatre::numberOfSoldTickets() {
+    int count = 0;
+    for (int i = 0; i < numberOfTickets -1; ++i)
+        if(tickets[i].isOccupied()) ++count;
+    return count;
+}
+
+double Theatre::totalRevenues()
+{
+    double sum = 0;
+    for(int i = 0; i < numberOfTickets - 1; ++i)
+        if(tickets[i].isOccupied()) sum += tickets[i].getPrice();
+    return sum;
+}
+
+
+std::string Theatre::showSeats()
+{
+    sortBySeat();
+    int count = 0;
+    std::ostringstream os;
+    os << "Verkaute Tickets: " << numberOfSoldTickets() << "\n"
+       << "Gesamteinnahmen: "  << totalRevenues()       << "\n"
+       << "Saalplan:\n\n\t";
+    for (int i = 1; i < 16; ++i)
+        if(i < 15) {os << i << "\t";}
+        else os << i << "\n\n";
+    
+    for (int i = 1; i < 11; ++i){
+        os << i;
+        for(int j = 0; j < 15; ++j){
+            tickets[count].isOccupied() ? os << "\tx" : os << "\t-"; 
+                   ++count;}
+        os << "\n\n";
+
+    }
+    return os.str();
+}
+
+std::string Theatre::soldTickets()
+{
+    std::ostringstream os;
+    for (int i = 0; i < numberOfTickets; ++i){
+        if(tickets[i].isOccupied()) os << tickets[i].toString() << "\n";
+    }
+    os << "\n";
+    return os.str();
+}
+
 
 void Ticket::setOccupied(bool occ)
 {
@@ -65,8 +117,10 @@ void Ticket::setPrice()
 std::string Ticket::toString()
 {
     std::ostringstream os;
-    os << "row: " << row << " seat: " << seat << "\noccupied: " << occupied
-            << "\nprice: "<<price<<"\n";
+    
+    os << "Reihe: " << row << " Sitz: " << seat << " Preis: " << getPrice() <<"€\n";
+    //if (isOccupied()) {os << "Ist nicht verfügbar.\n";}
+    //else os << "Ist verfügbar.\n";
     return os.str();
 }
 

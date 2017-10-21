@@ -8,8 +8,8 @@
 class Ticket {
 public:
     Ticket() : row{0}, seat{0}, price{0.0}, occupied{false} {}
-    Ticket(int ro, int se, double pr, bool occ) : row{ro}, seat{se}, price{pr}, occupied{occ} {}
-    bool isOccupied() const {return occupied;}
+    Ticket(int ro, int se, double pr = 0.0, bool occ = false) : row{ro}, seat{se}, price{pr}, occupied{occ} {}
+    bool isOccupied() {return occupied;}
     std::string toString();
     
     void setRow(int);
@@ -41,7 +41,7 @@ public:
     std::string showSeats();
     
 
-//private:
+private:
     Ticket tickets[numberOfTickets];
 };
 
